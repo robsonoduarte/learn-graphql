@@ -14,7 +14,7 @@ const resolvers = {
             return "Hello GraphQL"
         },
         date(){
-           return `${new Date()}`
+           return `${new Date}`
         }
     }
 }
