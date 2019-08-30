@@ -4,6 +4,7 @@ const typeDefs = gql`
     # Point of entry of API
     type Query{
         hello: String
+        date: String
     }
 `
 
@@ -11,6 +12,9 @@ const resolvers = {
     Query:{
         hello(){
             return "Hello GraphQL"
+        },
+        date(){
+           return `${new Date()}`
         }
     }
 }
