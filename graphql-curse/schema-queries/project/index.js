@@ -1,10 +1,12 @@
 const {ApolloServer, gql} = require('apollo-server')
 
 const typeDefs = gql`
+    scalar Date
+
     # Point of entry of API
     type Query{
         hello: String
-        date: String
+        date: Date
     }
 `
 
@@ -14,7 +16,7 @@ const resolvers = {
             return "Hello GraphQL"
         },
         date(){
-           return `${new Date}`
+           return new Date
         }
     }
 }
