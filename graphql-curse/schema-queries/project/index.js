@@ -21,6 +21,11 @@ const typeDefs = gql`
 `
 
 const resolvers = {
+    User: {
+        salary(user){
+            return user.salary_brl // resolver the salary in user.salary_brl example how resolver properties with differents names
+        }
+    },
     Query:{
         hello(){
             return "Hello GraphQL"
@@ -34,7 +39,7 @@ const resolvers = {
                 name: 'Robson Duarte',
                 email:'robson.o.d@gmail.com',
                 age: 42,
-                salary: 500.00,
+                salary_brl: 500.00,
                 vip: true
             }
         }
