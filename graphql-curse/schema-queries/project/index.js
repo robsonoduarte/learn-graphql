@@ -1,4 +1,23 @@
-const {ApolloServer, gql} = require('apollo-server')
+const { ApolloServer, gql } = require('apollo-server')
+
+
+const users = [{
+    id: 1,
+    name: 'Robson',
+    email: 'robson@gmail.com',
+    age: 43
+}, {
+    id: 2,
+    name: 'Ana',
+    email: 'ana.d@gmail.com',
+    age: 43
+}, {
+    id: 1,
+    name: 'Cida',
+    email: 'cida@gmail.com',
+    age: 64
+}]
+
 
 const typeDefs = gql`
     scalar Date
@@ -26,48 +45,52 @@ const typeDefs = gql`
         user: User
         product: Product
         numbers:[Int!]!
+        users: [User]
     }
 `
 
 const resolvers = {
     User: {
-        salary(user){
+        salary(user) {
             return user.salary_brl // resolver the salary in user.salary_brl example how resolver properties with differents names
         }
     },
-    Product:{
-        discountPrice(product){
-            return product.price - ( product.price * (product.discount / 100))
+    Product: {
+        discountPrice(product) {
+            return product.price - (product.price * (product.discount / 100))
         }
     },
-    Query:{
-        hello(){
+    Query: {
+        hello() {
             return "Hello GraphQL"
         },
-        date(){
-           return new Date
+        date() {
+            return new Date
         },
-        user(){
+        user() {
             return {
                 id: 1,
                 name: 'Robson Duarte',
-                email:'robson.o.d@gmail.com',
+                email: 'robson.o.d@gmail.com',
                 age: 42,
                 salary_brl: 500.00,
                 vip: true
             }
         },
-        product(){
+        product() {
             return {
                 name: 'Computer',
                 price: 1000.00,
                 discount: 10.0
             }
         },
-        numbers(){            
+        numbers() {
             return Array(6).fill(0)
-            .map(n => parseInt(Math.random() * 60 + 1))
-            .sort((a, b) => a - b)
+                .map(n => parseInt(Math.random() * 60 + 1))
+                .sort((a, b) => a - b)
+        },
+        users(){
+            return users;
         }
     }
 }
@@ -77,6 +100,6 @@ const server = new ApolloServer({
     resolvers
 })
 
-server.listen().then(({url}) => {
+server.listen().then(({ url }) => {
     console.log(`Running Server in ${url}`)
 })
