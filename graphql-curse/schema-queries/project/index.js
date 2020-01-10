@@ -12,7 +12,7 @@ const users = [{
     email: 'ana.d@gmail.com',
     age: 43
 }, {
-    id: 1,
+    id: 3,
     name: 'Cida',
     email: 'cida@gmail.com',
     age: 64
@@ -46,6 +46,7 @@ const typeDefs = gql`
         product: Product
         numbers:[Int!]!
         users: [User]
+        findUser(id: ID): User
     }
 `
 
@@ -91,6 +92,10 @@ const resolvers = {
         },
         users(){
             return users;
+        },
+        findUser(_, {id}){
+            const selected = users.filter(u => u.id == id)
+            return selected ? selected[0] : null
         }
     }
 }
