@@ -19,6 +19,15 @@ const users = [{
 }]
 
 
+const profiles =[{
+    id: 1,
+    name: "Common"
+},{
+    id: 2,
+    name: "Administrator"
+}]
+
+
 const typeDefs = gql`
     scalar Date
 
@@ -37,6 +46,11 @@ const typeDefs = gql`
         discount: Float
         discountPrice: Float
     }
+    
+    type Profile{
+        id: Int
+        name: String
+    }
 
     # Point of entry of API
     type Query{
@@ -47,6 +61,8 @@ const typeDefs = gql`
         numbers:[Int!]!
         users: [User]
         findUser(id: ID): User
+        profiles: [Profile]
+        findProfile(id: Int): Profile
     }
 `
 
@@ -96,7 +112,15 @@ const resolvers = {
         findUser(_, {id}){
             const selected = users.filter(u => u.id == id)
             return selected ? selected[0] : null
+        },
+        profiles(){
+            return profiles
+        },
+        findProfile(_, {id}){
+            const selected = profiles.filter(p => p.id == id)
+            return selected ? selected[0] : null
         }
+
     }
 }
 
